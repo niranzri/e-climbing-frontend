@@ -1,6 +1,10 @@
+import classes from '../styles/landingpage.module.css'
+
 const LandingPage = () => {
     return (
-        <div> Landing Page </div>
+        <div> 
+            <p> Landing Page </p> 
+        </div>
     );
 }
 

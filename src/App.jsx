@@ -15,6 +15,7 @@ function App() {
   return (
     <> 
     <Navbar />  
+    <div className="pageCtn">
     <Routes>
       <Route path='/' element={<LandingPage/>} />
       <Route path='/auth' element={<AuthPage/>} />
@@ -25,6 +26,7 @@ function App() {
       <Route path='/profile/cart/checkout' element={<CheckoutPage />} />
       <Route path='*' element={<ErrorPage/>} />
     </Routes>
+    </div>
     <Footer />
     </>
   )
