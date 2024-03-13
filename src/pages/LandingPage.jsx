@@ -1,6 +1,8 @@
+import { useRef } from 'react';
 import classes from '../styles/landingpage.module.css'
 import { Carousel } from '@mantine/carousel';
 import { Image } from '@mantine/core';
+import Autoplay from 'embla-carousel-autoplay';
 
 const LandingPage = () => {
 
@@ -13,15 +15,31 @@ const LandingPage = () => {
 
     const slides = images.map((url) => (
         <Carousel.Slide key={url}>
-            <Image src={url} alt="carousel slide"/>
+            <div className={classes.imageWrapper}>
+                <Image src={url} width= "100%" height="auto" alt="carousel slide" className={classes.image}/>
+            </div>
         </Carousel.Slide>
     ));
 
+    const autoplay = useRef(Autoplay({ delay: 4000 }));
+
     return (
-        <div className={classes.carouselCtn}>
-            <Carousel withIndicators loop >
-                {slides}
-            </Carousel>
+        <div className={classes.landingCtn}>
+            <div className={classes.header}>
+                <p> Your climbing adventure begins <span> here </span> </p>
+            </div>
+            <div className={classes.carouselCtn}>
+                <Carousel 
+                mx="auto"
+                loop
+                withIndicators 
+                style={{ width: '100%' }}       
+                plugins={[autoplay.current]}
+                onMouseEnter={autoplay.current.stop}
+                onMouseLeave={autoplay.current.reset}>
+                    {slides}
+                </Carousel>
+            </div>
         </div>
     );
 }
