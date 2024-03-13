@@ -1,8 +1,6 @@
 footer {
     height: 50px;
     background-color: rgb(228, 239, 139);
-    z-index: 100;
-    position: sticky;
     bottom: 0;
     width: 100vw;
     display: flex;

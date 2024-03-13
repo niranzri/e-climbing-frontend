@@ -34,11 +34,19 @@ const LandingPage = () => {
                 loop
                 withIndicators 
                 style={{ width: '100%' }}       
-                plugins={[autoplay.current]}
-                onMouseEnter={autoplay.current.stop}
-                onMouseLeave={autoplay.current.reset}>
+                plugins={[autoplay.current]}>
                     {slides}
                 </Carousel>
+            </div>
+            <div className={classes.collectionCtn}>
+                <div className={classes.collectionText}> 
+                    Explore our collection 
+                </div>
+                <div className={classes.collectionBoxes}>
+                    <div className={classes.collectionItemBox}></div>
+                    <div className={classes.collectionItemBox}></div>
+                    <div className={classes.collectionItemBox}></div>
+                </div>
             </div>
         </div>
     );
