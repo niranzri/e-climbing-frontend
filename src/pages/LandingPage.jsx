@@ -46,6 +46,7 @@ const LandingPage = () => {
                     <div className={classes.collectionItemBox}></div>
                     <div className={classes.collectionItemBox}></div>
                     <div className={classes.collectionItemBox}></div>
+                    <div className={classes.collectionItemBox}></div>
                 </div>
             </div>
         </div>
