@@ -3,6 +3,7 @@ import classes from '../styles/landingpage.module.css'
 import { Carousel } from '@mantine/carousel';
 import { Image } from '@mantine/core';
 import Autoplay from 'embla-carousel-autoplay';
+import chalkBag from '../images/chalkbag.jpg';
 
 const LandingPage = () => {
 
@@ -44,7 +45,8 @@ const LandingPage = () => {
                 </div>
                 <div className={classes.collectionBoxes}>
                     <div className={classes.collectionItemBox}></div>
-                    <div className={classes.collectionItemBox}></div>
+                    <div className={classes.collectionItemBox} style={{backgroundImage: `url(${chalkBag})`}}>
+                    </div>
                     <div className={classes.collectionItemBox}></div>
                     <div className={classes.collectionItemBox}></div>
                 </div>
