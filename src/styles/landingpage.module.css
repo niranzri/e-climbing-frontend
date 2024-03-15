@@ -9,12 +9,6 @@ span {
     font-weight: bold;
 }
 
-.landingCtn {
-    width: 100vw;
-    height:auto;
-    flex-direction:column;
-}
-
 .carouselCtn {
     width: 100%;
     display: flex;
@@ -51,7 +45,7 @@ span {
     width: 100%;
     height: auto;
     display: flex;
-    padding: 20px;
+    padding: 20px 60px;
     justify-content: center;
     align-items: center;
     color: white;
@@ -61,14 +55,20 @@ span {
     height: 100%;
     width: calc(100%/3);
     display: flex;
-    align-items: center;
+    flex-direction:column;
+    align-items: flex-start;
+    color:white;
+}
+
+.collectionText > p {
+    padding-left: 5%;
 }
 
 .collectionBoxes {
     height: 100%;
     width: calc(2*100%/3);
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     gap: 20px;
 }
 
@@ -80,4 +80,82 @@ span {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.svgCtn {
+  display: block;
+  height: 0;
+  width: 0;
+}
+/*
+Button source: https://uiverse.io/JaydipPrajapati1910/angry-husky-73
+Copyright - 2024 cssbuttons-io 
+Copyright - 2024 cssbuttons-io (cssbuttons.io) 
+Copyright - 2024 JaydipPrajapati1910 (Jaydip Prajapati) */
+
+.c-button {
+  color: #000;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  padding: 0.9em 1.6em;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  z-index: 1;
+}
+
+.c-button--gooey {
+  color: black;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border: 4px solid black;
+  border-radius: 0;
+  position: relative;
+  transition: all 700ms ease;
+}
+
+.c-button--gooey .c-button__blobs {
+  height: 100%;
+  filter: url(#goo);
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: -3px;
+  right: -1px;
+  z-index: -1;
+}
+
+.c-button--gooey .c-button__blobs div {
+  background-color: black;
+  width: 34%;
+  height: 100%;
+  border-radius: 100%;
+  position: absolute;
+  transform: scale(1.4) translateY(125%) translateZ(0);
+  transition: all 700ms ease;
+}
+
+.c-button--gooey .c-button__blobs div:nth-child(1) {
+  left: -5%;
+}
+
+.c-button--gooey .c-button__blobs div:nth-child(2) {
+  left: 30%;
+  transition-delay: 60ms;
+}
+
+.c-button--gooey .c-button__blobs div:nth-child(3) {
+  left: 66%;
+  transition-delay: 25ms;
+}
+
+.c-button--gooey:hover {
+  color: #fff;
+}
+
+.c-button--gooey:hover .c-button__blobs div {
+  transform: scale(1.4) translateY(0) translateZ(0);
 }

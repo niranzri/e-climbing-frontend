@@ -13,22 +13,20 @@ import './App.css'
 
 function App() {
   return (
-    <> 
-    <Navbar />  
     <div className="pageCtn">
-    <Routes>
-      <Route path='/' element={<LandingPage/>} />
-      <Route path='/auth' element={<AuthPage/>} />
-      <Route path='/profile' element={<ProfilePage/>} />
-      <Route path='/products' element={<AllProductsPage/>} />
-      <Route path='/profile/wishlist' element={<WishlistPage/>} />
-      <Route path='/profile/cart' element={<CartPage />} />
-      <Route path='/profile/cart/checkout' element={<CheckoutPage />} />
-      <Route path='*' element={<ErrorPage/>} />
-    </Routes>
+      <Navbar />  
+      <Routes>
+        <Route path='/' element={<LandingPage/>} />
+        <Route path='/auth' element={<AuthPage/>} />
+        <Route path='/profile' element={<ProfilePage/>} />
+        <Route path='/shop' element={<AllProductsPage/>} />
+        <Route path='/profile/wishlist' element={<WishlistPage/>} />
+        <Route path='/profile/cart' element={<CartPage />} />
+        <Route path='/profile/cart/checkout' element={<CheckoutPage />} />
+        <Route path='*' element={<ErrorPage/>} />
+      </Routes>
+      <Footer />
     </div>
-    <Footer />
-    </>
   )
 }
 

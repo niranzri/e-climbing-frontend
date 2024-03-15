@@ -1,6 +1,6 @@
 const AllProductsPage = () => {
     return ( 
-        <> All products </>
+        <> <p> Shop </p> </>
      );
 }
  
