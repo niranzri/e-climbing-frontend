@@ -3,6 +3,7 @@ p {
     font-size: 1.2rem;
     position:relative;
     padding: 3%;
+    width:auto;
 }
 
 span {
@@ -56,6 +57,7 @@ span {
     width: calc(100%/3);
     display: flex;
     flex-direction:column;
+    justify-content: flex-start;
     align-items: flex-start;
     color:white;
 }
@@ -69,6 +71,7 @@ span {
     width: calc(2*100%/3);
     display: flex;
     justify-content: flex-end;
+    align-items:center;
     gap: 20px;
 }
 
@@ -159,3 +162,65 @@ Copyright - 2024 JaydipPrajapati1910 (Jaydip Prajapati) */
 .c-button--gooey:hover .c-button__blobs div {
   transform: scale(1.4) translateY(0) translateZ(0);
 }
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (max-width: 576px) { 
+  .collectionCtn {
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+  }
+
+  .collectionText {
+    width: 100%;
+  }
+
+  .collectionBoxes {
+    width: 100%;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+  }
+
+ }
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 577px) and (max-width: 991px) { 
+  .collectionCtn {
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+  }
+
+  .collectionText {
+    width: 100%;
+  }
+
+  .collectionBoxes {
+    width: 100%;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+  }
+ }
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+  .collectionCtn {
+    flex-direction: row;
+  }
+
+  .collectionItemBox {
+    height: 150px;
+    width: 150px;
+  }
+
+  .collectionText {
+    width: 100%;
+  }
+
+  .collectionBoxes {
+    width: calc(4*100%/5);
+    margin-left: 1rem;
+  }
+ }
