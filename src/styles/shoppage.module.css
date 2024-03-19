@@ -1,0 +1,46 @@
+.header {
+    width: 100vw;
+    height: 10vh;
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header h2 {
+    color:white;
+}
+
+.productsCtn {
+    width: 100vw;
+    min-height: 90vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color:white;
+    flex-wrap: wrap;
+}
+
+.productCtn {
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items: center;
+    margin:10px;
+}
+
+.productCtn p {
+    color:black;
+}
+
+img {
+    height: 300px;
+    width: 300px;
+}
+
+.reviewCtn {
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}

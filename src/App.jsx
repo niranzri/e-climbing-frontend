@@ -4,7 +4,7 @@ import Footer from './components/Footer';
 import LandingPage from './pages/LandingPage';
 import AuthPage from './pages/AuthPage';
 import ProfilePage from './pages/ProfilePage';
-import AllProductsPage from './pages/AllProductsPage';
+import ShopPage from './pages/ShopPage';
 import WishlistPage from './pages/WishlistPage';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
@@ -19,7 +19,7 @@ function App() {
         <Route path='/' element={<LandingPage/>} />
         <Route path='/auth' element={<AuthPage/>} />
         <Route path='/profile' element={<ProfilePage/>} />
-        <Route path='/shop' element={<AllProductsPage/>} />
+        <Route path='/shop' element={<ShopPage/>} />
         <Route path='/profile/wishlist' element={<WishlistPage/>} />
         <Route path='/profile/cart' element={<CartPage />} />
         <Route path='/profile/cart/checkout' element={<CheckoutPage />} />
