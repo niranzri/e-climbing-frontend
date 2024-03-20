@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import classes from '../styles/landingpage.module.css'
 import { Carousel } from '@mantine/carousel';
 import { Image } from '@mantine/core';
@@ -7,7 +8,6 @@ import shoes from '../images/shoes.jpg';
 import chalkBag from '../images/chalkbag.jpg';
 import harness from '../images/harness.jpg';
 import gear from '../images/gear.jpg';
-import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
 
@@ -32,7 +32,7 @@ const LandingPage = () => {
     return (
         <>
             <div className={classes.header}>
-                <p> Your climbing adventure begins <span> <Link to='/shop'> here </Link> </span> </p>
+                <p> Your climbing adventure begins <span> <Link to='/products'> here </Link> </span> </p>
             </div>
             <div className={classes.carouselCtn}>
                 <Carousel 
@@ -47,7 +47,7 @@ const LandingPage = () => {
             <div className={classes.collectionCtn}>
                 <div className={classes.collectionText}> 
                 <p> The finest climbing equipment </p>
-                <Link to='/shop'>
+                <Link to='/products'>
                     <button className={`${classes['c-button']} ${classes['c-button--gooey']}`}> Explore our collection 
                     <div className={classes['c-button__blobs']}>
                         <div></div>
@@ -67,10 +67,10 @@ const LandingPage = () => {
                 </Link>
                 </div>
                 <div className={classes.collectionBoxes}>
-                    <Link to='/shop'><div className={classes.collectionItemBox} style={{backgroundImage: `url(${shoes})`}}></div></Link>
-                    <Link to='/shop'><div className={classes.collectionItemBox} style={{backgroundImage: `url(${chalkBag})`}}></div></Link>
-                    <Link to='/shop'><div className={classes.collectionItemBox} style={{backgroundImage: `url(${harness})`}}></div></Link>
-                    <Link to='/shop'><div className={classes.collectionItemBox} style={{backgroundImage: `url(${gear})`}}></div></Link>
+                    <div className={classes.collectionItemBox} style={{backgroundImage: `url(${shoes})`}}></div>
+                    <div className={classes.collectionItemBox} style={{backgroundImage: `url(${chalkBag})`}}></div>
+                    <div className={classes.collectionItemBox} style={{backgroundImage: `url(${harness})`}}></div>
+                    <div className={classes.collectionItemBox} style={{backgroundImage: `url(${gear})`}}></div>
                 </div>
             </div>
         </>

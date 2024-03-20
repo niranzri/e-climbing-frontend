@@ -1,32 +1,66 @@
 .header {
-    width: 100vw;
-    height: 10vh;
+    width: 100%;
+    height: 10%;
     min-height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.header h2 {
+.header h3 {
     color:white;
 }
 
+.mainCtn {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-color:white;
+}
+
+.menuCtn {
+    width: 20%;
+    height: auto;
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+}
+
+.filterCtn {
+    width: 100%;
+    height: auto;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items: center;
+    text-align:left;
+    padding: 10px 0;
+}
+
+.pill {
+    margin: 2%;
+}
+
+.selected {
+    border: 2px solid rgb(5, 189, 5); /* Adds border when selected */
+}
+
 .productsCtn {
-    width: 100vw;
-    min-height: 90vh;
+    width: 80%;
+    height: 100%;
+    padding: 10px 0;
     display: flex;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: flex-start;
     background-color:white;
     flex-wrap: wrap;
 }
 
 .productCtn {
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin:10px;
+    margin: 10px;
 }
 
 .productCtn p {
@@ -38,9 +72,27 @@ img {
     width: 300px;
 }
 
-.reviewCtn {
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
+
+@media (max-width: 1024px) { 
+
+    .mainCtn {
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+    }
+
+    .menuCtn {
+        width: 100vw;
+        height: auto;
+    }
+
+    .productsCtn {
+        width: 100%;
+        height: auto;
+    }
+
+    .filterCtn {
+        align-items: flex-start;
+    }
+
 }

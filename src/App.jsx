@@ -5,6 +5,7 @@ import LandingPage from './pages/LandingPage';
 import AuthPage from './pages/AuthPage';
 import ProfilePage from './pages/ProfilePage';
 import ShopPage from './pages/ShopPage';
+import ProductPage from './pages/ProductPage';
 import WishlistPage from './pages/WishlistPage';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
@@ -19,7 +20,8 @@ function App() {
         <Route path='/' element={<LandingPage/>} />
         <Route path='/auth' element={<AuthPage/>} />
         <Route path='/profile' element={<ProfilePage/>} />
-        <Route path='/shop' element={<ShopPage/>} />
+        <Route path='/products' element={<ShopPage/>} />
+        <Route path='/products/:productId' element={<ProductPage/>} />
         <Route path='/profile/wishlist' element={<WishlistPage/>} />
         <Route path='/profile/cart' element={<CartPage />} />
         <Route path='/profile/cart/checkout' element={<CheckoutPage />} />

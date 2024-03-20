@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.12",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
@@ -17,6 +20,9 @@
     "@mantine/core": "^7.6.2",
     "@mantine/form": "^7.6.2",
     "@mantine/hooks": "^7.6.2",
+    "@material-ui/core": "^4.12.4",
+    "@mui/material": "^5.15.14",
+    "axios": "^1.6.8",
     "embla-carousel-autoplay": "^7.1.0",
     "embla-carousel-react": "^7.1.0",
     "react": "^18.2.0",
