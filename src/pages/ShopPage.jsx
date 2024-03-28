@@ -1,6 +1,6 @@
 import { useState, useEffect }  from "react";
 import { Card, Image, Text, Badge, Group, Pill, Button } from '@mantine/core';
-import { Slider, TextField, Typography, Grid } from '@material-ui/core';
+import { Slider, TextField, Typography, Grid, useMediaQuery } from '@material-ui/core';
 import classes from '../styles/shoppage.module.css';
 import axios from "axios";
 
@@ -12,6 +12,8 @@ const ShopPage = () => {
     const [selectedGender, setSelectedGender] = useState(null);
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(300);
+
+    const isSmallScreen = useMediaQuery('(max-width: 1024px)'); 
 
     /* fetch version (below with axios)
     useEffect(() => {
@@ -110,15 +112,23 @@ const ShopPage = () => {
                     <div className={classes.filterCtn}> 
                         <h3> Price</h3>
                         <Typography variant="h6" gutterBottom></Typography>
-                        <Grid container spacing={3} alignItems="center">
+                        <Grid container spacing={3} justifyContent="center" alignItems="center">
                             <Grid item xs={4}>
                             <TextField
                                 label="Min Price"
                                 type="number"
                                 variant="outlined"
                                 value={minPrice}
+                                className={classes.selected} 
                                 onChange={(e) => setMinPrice(e.target.value)}
                                 fullWidth
+                                inputProps={{
+                                    style: {
+                                      '&:focus': {
+                                        borderColor: 'red' // Change border color when focused
+                                      }
+                                    }
+                                  }}
                             />
                             </Grid>
 
@@ -128,6 +138,7 @@ const ShopPage = () => {
                                 type="number"
                                 variant="outlined"
                                 value={maxPrice}
+                                className={classes.selected}
                                 onChange={(e) => setMaxPrice(e.target.value)}
                                 fullWidth
                             />
@@ -143,6 +154,7 @@ const ShopPage = () => {
                                 min={0}
                                 max={300}
                                 step={1}
+                                style={{ color: 'green', width: isSmallScreen ? '70%' : '100%', alignItems: 'center', justifyContent: 'center' }}
                                 valueLabelDisplay="auto"
                                 aria-labelledby="range-slider"
                             />
