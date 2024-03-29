@@ -2,8 +2,7 @@ p {
     color:white;
     font-size: 1.2rem;
     position:relative;
-    padding: 3%;
-    width:auto;
+    width: auto;
 }
 
 span {
@@ -19,8 +18,7 @@ span {
 
 .header {
     width: 100%;
-    height: 10%;
-    min-height: 100px;
+    height: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,7 +44,7 @@ span {
     width: 100%;
     height: auto;
     display: flex;
-    padding: 20px 40px;
+    padding: 20px;
     justify-content: center;
     align-items: center;
     color: white;
@@ -60,10 +58,6 @@ span {
     align-items: center;
     margin-right: 1rem;
     color:white;
-}
-
-.collectionText > p {
-    padding-left: 5%;
 }
 
 .collectionBoxes {

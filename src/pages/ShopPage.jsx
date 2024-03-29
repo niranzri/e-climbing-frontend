@@ -1,38 +1,35 @@
 import { useState, useEffect }  from "react";
 import { Card, Image, Text, Badge, Group, Pill, Button } from '@mantine/core';
-import { Slider, TextField, Typography, Grid, useMediaQuery } from '@material-ui/core';
+import { Slider, TextField, Typography, Grid, useMediaQuery } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
+
 import classes from '../styles/shoppage.module.css';
 import axios from "axios";
 
 const ShopPage = () => {
 
     const [products, setProducts] = useState([]);
+    const [favourites, setFavourites] = useState([]);
     const [selectedType, setSelectedType] = useState(null);
     const [selectedBrand, setSelectedBrand] = useState(null);
     const [selectedGender, setSelectedGender] = useState(null);
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(300);
+    const [isFavourite, setIsFavourite] = useState(false);
 
     const isSmallScreen = useMediaQuery('(max-width: 1024px)'); 
 
-    /* fetch version (below with axios)
-    useEffect(() => {
-        const fetchProducts = async() => {
-            try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/api/products`)
-                console.log(response)
-                if (response.ok) {
-                    const productsData = await response.json()
-                    setProducts(productsData);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        fetchProducts();
-    }, [])
-    */
+    /*
+    const saveToFavourites = (productId) => {
+        setFavourites(prevFavourites =>
+            prevFavourites.includes(productId) // Check if the product is already in favourites
+            ? prevFavourites.filter(id => id !== productId) // If yes, remove it
+            : [...prevFavourites, productId] // If not, add it
+        );
+        setIsFavourite(prevIsFavourite => !prevIsFavourite); 
+    };*/
 
     const getAllProducts = () => {
         axios
@@ -75,7 +72,7 @@ const ShopPage = () => {
     return ( 
         <> 
             <div className={classes.header}>
-                <h3> All our products </h3>
+                <p> From harnesses to carabines, we've got you covered with our top-quality climbing gear </p>
             </div>
             <div className={classes.mainCtn}> 
                 <div className={classes.menuCtn}>
@@ -174,12 +171,18 @@ const ShopPage = () => {
                 <div className={classes.productsCtn}>
                     {filteredProducts.map(product => (
                         <Card shadow="sm" padding="lg" radius="md" withBorder className={classes.productCtn} key={product._id}>
-                            <Card.Section>
-                            <Image
-                                src={product.image}
-                                height={160}
-                                alt="product image"
-                            />
+                            <Card.Section position="relative"> {/* allows positioning of child heart icon */}
+                                <FontAwesomeIcon 
+                                    icon={isFavourite ? solidHeart : regularHeart} 
+                                    size="lg"
+                                    className={classes.heartIcon} 
+                                    /*onClick={saveToFavourites(product._id)}*/
+                                />
+                                <Image
+                                    src={product.image}
+                                    height={160}
+                                    alt="product image"
+                                />
                             </Card.Section>
 
                             <Group justify="space-between" mt="md" mb="xs">

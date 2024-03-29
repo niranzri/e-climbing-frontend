@@ -32,7 +32,7 @@ const LandingPage = () => {
     return (
         <>
             <div className={classes.header}>
-                <p> Your climbing adventure begins <span> <Link to='/products'> here </Link> </span> </p>
+                <p> Look no further for top-quality climbing gear. <br/> Your climbing adventure begins <span> <Link to='/products'> here </Link> </span> </p>
             </div>
             <div className={classes.carouselCtn}>
                 <Carousel 
