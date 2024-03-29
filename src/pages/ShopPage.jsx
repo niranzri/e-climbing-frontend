@@ -81,87 +81,93 @@ const ShopPage = () => {
                 <div className={classes.menuCtn}>
                     <div className={classes.filterCtn}> 
                         <h3> Type </h3>
-                        {productTypes.map((product, index) => (
-                            <Pill 
-                            key={index} 
-                            size="md" 
-                            className={`${classes.pill} ${selectedType === product ? classes.selected : ""}`}
-                            onClick={() => handleTypeSelection(product)}> {product} </Pill>
-                        ))}
+                        <div className={classes.optionsCtn}>
+                            {productTypes.map((product, index) => (
+                                <Pill 
+                                key={index} 
+                                size="md" 
+                                style={{ 
+                                    backgroundColor: selectedType === product ? 'green' : '',
+                                    margin: '2%'}}
+                                onClick={() => handleTypeSelection(product)}> {product} </Pill>
+                            ))}
+                        </div>
                     </div>
                     <div className={classes.filterCtn}> 
                         <h3> Brand </h3>
-                        {productBrands.map((brand, index) => (
-                            <Pill 
-                            key={index} 
-                            size="md" 
-                            className={`${classes.pill} ${selectedBrand === brand ? classes.selected : ""}`}
-                            onClick={() => handleBrandSelection(brand)}> {brand} </Pill>
-                        ))}
+                        <div className={classes.optionsCtn}>
+                            {productBrands.map((brand, index) => (
+                                <Pill 
+                                key={index} 
+                                size="md" 
+                                style={{ 
+                                    backgroundColor: selectedBrand === brand ? 'green' : '',
+                                    margin: '2%'}}
+                                onClick={() => handleBrandSelection(brand)}> {brand} </Pill>
+                            ))}
+                        </div>
                     </div>
                     <div className={classes.filterCtn}> 
                         <h3> Gender </h3>
-                        {productGenders.map((gender, index) => (
-                            <Pill 
-                            key={index} 
-                            size="md" 
-                            className={`${classes.pill} ${selectedGender === gender ? classes.selected : ""}`}
-                            onClick={()=> handleGenderSelection(gender)}> {gender} </Pill>
-                        ))}
+                        <div className={classes.optionsCtn}>
+                            {productGenders.map((gender, index) => (
+                                <Pill 
+                                key={index} 
+                                size="md" 
+                                style={{ 
+                                    backgroundColor: selectedGender === gender ? 'green' : '',
+                                    margin: '2%'}}
+                                onClick={()=> handleGenderSelection(gender)}> {gender} </Pill>
+                            ))}
+                        </div>
                     </div>
                     <div className={classes.filterCtn}> 
                         <h3> Price</h3>
-                        <Typography variant="h6" gutterBottom></Typography>
-                        <Grid container spacing={3} justifyContent="center" alignItems="center">
-                            <Grid item xs={4}>
-                            <TextField
-                                label="Min Price"
-                                type="number"
-                                variant="outlined"
-                                value={minPrice}
-                                className={classes.selected} 
-                                onChange={(e) => setMinPrice(e.target.value)}
-                                fullWidth
-                                inputProps={{
-                                    style: {
-                                      '&:focus': {
-                                        borderColor: 'red' // Change border color when focused
-                                      }
-                                    }
-                                  }}
-                            />
+                        <div className={classes.priceCtn}>
+                            <Typography variant="h6" gutterBottom></Typography>
+                            <Grid container spacing={3} justifyContent={isSmallScreen ? 'center' : 'flex-start'} alignItems={isSmallScreen ? 'center' : 'flex-start'}>
+                                <Grid item xs={isSmallScreen ? 2 : 4}>
+                                    <TextField
+                                        label="Min Price"
+                                        type="number"
+                                        variant="outlined"
+                                        value={minPrice}
+                                        className={classes.selected} 
+                                        onChange={(e) => setMinPrice(e.target.value)}
+                                        fullWidth
+                                    />
+                                </Grid>
+                                <Grid item xs={isSmallScreen ? 2 : 4}>
+                                    <TextField
+                                        label="Max Price"
+                                        type="number"
+                                        variant="outlined"
+                                        value={maxPrice}
+                                        className={classes.selected}
+                                        onChange={(e) => setMaxPrice(e.target.value)}
+                                        fullWidth
+                                    />
+                                </Grid>
+                                <Grid item xs={10}>
+                                    <Slider
+                                        value={[minPrice, maxPrice]}
+                                        onChange={(e, value) => {
+                                            setMinPrice(value[0]);
+                                            setMaxPrice(value[1]);
+                                        }}
+                                        min={0}
+                                        max={300}
+                                        step={1}
+                                        style={{ 
+                                            color: 'green', 
+                                            width: isSmallScreen ? '70%' : '100%', 
+                                        }}
+                                        valueLabelDisplay="auto"
+                                        aria-labelledby="range-slider"
+                                    />
+                                </Grid>
                             </Grid>
-
-                            <Grid item xs={4}>
-                            <TextField
-                                label="Max Price"
-                                type="number"
-                                variant="outlined"
-                                value={maxPrice}
-                                className={classes.selected}
-                                onChange={(e) => setMaxPrice(e.target.value)}
-                                fullWidth
-                            />
-
-                            </Grid><Grid item xs={12}>
-
-                            <Slider
-                                value={[minPrice, maxPrice]}
-                                onChange={(e, value) => {
-                                    setMinPrice(value[0]);
-                                    setMaxPrice(value[1]);
-                                }}
-                                min={0}
-                                max={300}
-                                step={1}
-                                style={{ color: 'green', width: isSmallScreen ? '70%' : '100%', alignItems: 'center', justifyContent: 'center' }}
-                                valueLabelDisplay="auto"
-                                aria-labelledby="range-slider"
-                            />
-                            </Grid> <Grid item xs={12}>
-                            {/*<Button color="green" mt="md" radius="md"> Apply </Button>*/}
-                            </Grid>
-                        </Grid>
+                        </div>
                     </div>
                 </div>
 
