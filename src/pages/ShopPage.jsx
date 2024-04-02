@@ -1,46 +1,22 @@
-import { useState, useEffect }  from "react";
+import { useState, useContext }  from "react";
 import { Card, Image, Text, Badge, Group, Pill, Button } from '@mantine/core';
 import { Slider, TextField, Typography, Grid, useMediaQuery } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
-
+import { AppContext } from "../contexts/AppContext";
 import classes from '../styles/shoppage.module.css';
-import axios from "axios";
+
 
 const ShopPage = () => {
-
-    const [products, setProducts] = useState([]);
-    const [favourites, setFavourites] = useState([]);
     const [selectedType, setSelectedType] = useState(null);
     const [selectedBrand, setSelectedBrand] = useState(null);
     const [selectedGender, setSelectedGender] = useState(null);
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(300);
-    const [isFavourite, setIsFavourite] = useState(false);
-
     const isSmallScreen = useMediaQuery('(max-width: 1024px)'); 
 
-    /*
-    const saveToFavourites = (productId) => {
-        setFavourites(prevFavourites =>
-            prevFavourites.includes(productId) // Check if the product is already in favourites
-            ? prevFavourites.filter(id => id !== productId) // If yes, remove it
-            : [...prevFavourites, productId] // If not, add it
-        );
-        setIsFavourite(prevIsFavourite => !prevIsFavourite); 
-    };*/
-
-    const getAllProducts = () => {
-        axios
-        .get(`${import.meta.env.VITE_API_URL}/api/products`)
-        .then(response => setProducts(response.data))
-        .catch(error => console.log(error));
-    };
-
-    useEffect(() => {
-        getAllProducts();
-    }, []);
+    const { products, setProducts } = useContext(AppContext);
 
     function removeDuplicates(data) {
         return [... new Set(data)]
@@ -68,6 +44,19 @@ const ShopPage = () => {
                (!selectedGender || product.gender === selectedGender) &&
                (product.price >= minPrice && product.price <= maxPrice);
     });
+
+
+    const saveToFavourites = (productId) => {
+        setProducts(prevProducts => {
+            const updatedProducts = prevProducts.map(product => {
+            if (product._id === productId) {
+                return {...product, isFavourite: !product.isFavourite}; // .map() creates a new object, so one needs a shallow copy, to which the updated isFavourite property is added
+            }
+            return product; 
+        })
+        return updatedProducts;
+    });
+    }
 
     return ( 
         <> 
@@ -173,10 +162,10 @@ const ShopPage = () => {
                         <Card shadow="sm" padding="lg" radius="md" withBorder className={classes.productCtn} key={product._id}>
                             <Card.Section position="relative"> {/* allows positioning of child heart icon */}
                                 <FontAwesomeIcon 
-                                    icon={isFavourite ? solidHeart : regularHeart} 
+                                    icon={product.isFavourite ? solidHeart : regularHeart} 
                                     size="lg"
                                     className={classes.heartIcon} 
-                                    /*onClick={saveToFavourites(product._id)}*/
+                                    onClick={() => saveToFavourites(product._id)} // function to save item to favourites
                                 />
                                 <Image
                                     src={product.image}
