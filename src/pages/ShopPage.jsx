@@ -1,4 +1,5 @@
 import { useState, useContext }  from "react";
+import { Link } from "react-router-dom";
 import { Card, Image, Text, Badge, Group, Pill, Button } from '@mantine/core';
 import { Slider, TextField, Typography, Grid, useMediaQuery } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,7 +17,7 @@ const ShopPage = () => {
     const [maxPrice, setMaxPrice] = useState(300);
     const isSmallScreen = useMediaQuery('(max-width: 1024px)'); 
 
-    const { products, setProducts } = useContext(AppContext);
+    const { products, saveToFavourites } = useContext(AppContext);
 
     function removeDuplicates(data) {
         return [... new Set(data)]
@@ -44,19 +45,6 @@ const ShopPage = () => {
                (!selectedGender || product.gender === selectedGender) &&
                (product.price >= minPrice && product.price <= maxPrice);
     });
-
-
-    const saveToFavourites = (productId) => {
-        setProducts(prevProducts => {
-            const updatedProducts = prevProducts.map(product => {
-            if (product._id === productId) {
-                return {...product, isFavourite: !product.isFavourite}; // .map() creates a new object, so one needs a shallow copy, to which the updated isFavourite property is added
-            }
-            return product; 
-        })
-        return updatedProducts;
-    });
-    }
 
     return ( 
         <> 
@@ -160,32 +148,34 @@ const ShopPage = () => {
                 <div className={classes.productsCtn}>
                     {filteredProducts.map(product => (
                         <Card shadow="sm" padding="lg" radius="md" withBorder className={classes.productCtn} key={product._id}>
-                            <Card.Section position="relative"> {/* allows positioning of child heart icon */}
-                                <FontAwesomeIcon 
-                                    icon={product.isFavourite ? solidHeart : regularHeart} 
-                                    size="lg"
-                                    className={classes.heartIcon} 
-                                    onClick={() => saveToFavourites(product._id)} // function to save item to favourites
-                                />
-                                <Image
-                                    src={product.image}
-                                    height={160}
-                                    alt="product image"
-                                />
-                            </Card.Section>
+                            <Link to={`/products/${product._id}`}>
+                                <Card.Section position="relative"> {/* allows positioning of child heart icon */}
+                                    <FontAwesomeIcon 
+                                        icon={product.isFavourite ? solidHeart : regularHeart} 
+                                        size="lg"
+                                        className={classes.heartIcon} 
+                                        onClick={() => saveToFavourites(product._id)} // function to save item to favourites
+                                    />
+                                    <Image
+                                        src={product.image}
+                                        height={160}
+                                        alt="product image"
+                                    />
+                                </Card.Section>
 
-                            <Group justify="space-between" mt="md" mb="xs">
-                                <Text fw={500}> {product.name} </Text>
-                                <Text fw={500}> {product.brand} </Text>
-                                <Badge color="black"> On Sale </Badge>
-                            </Group>
+                                <Group justify="space-between" mt="md" mb="xs">
+                                    <Text fw={500}> {product.name} </Text>
+                                    <Text fw={500}> {product.brand} </Text>
+                                    <Badge color="black"> On Sale </Badge>
+                                </Group>
 
 
-                            <Group justify="space-between" mt="md" mb="xs">
-                                <Text size="sm" c="dimmed"> {product.price} € </Text>
-                            </Group>
+                                <Group justify="space-between" mt="md" mb="xs">
+                                    <Text size="sm" c="dimmed"> {product.price} € </Text>
+                                </Group>
 
-                            <Button color="green" mt="md" radius="md"> Add to cart </Button>
+                                <Button color="green" mt="md" radius="md"> Add to cart </Button>
+                            </Link>
                         </Card>
                     ))}
                 </div>

@@ -26,9 +26,23 @@ const AppContextProvider = ({ children }) => {
         getAllProducts()
     }, []);
 
+
+    const saveToFavourites = (productId) => {
+        setProducts(prevProducts => {
+            const updatedProducts = prevProducts.map(product => {
+            if (product._id === productId) {
+                return {...product, isFavourite: !product.isFavourite}; // .map() creates a new object, so one needs a shallow copy, to which the updated isFavourite property is added
+            }
+            return product; 
+        })
+        console.log(updatedProducts)
+        return updatedProducts;
+        });
+    }
+
     return (
         <AppContext.Provider 
-            value={{ products, setProducts }}> 
+            value={{ products, setProducts, saveToFavourites }}> 
                 {children} 
         </AppContext.Provider>
       );

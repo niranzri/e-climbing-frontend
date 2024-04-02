@@ -19,7 +19,7 @@ const Navbar = () => {
                 <Link to='/profile/cart'>
                     <FontAwesomeIcon icon={faShoppingCart}/>
                 </Link>
-                <Link to='/profile'>
+                <Link to='/login'>
                     <FontAwesomeIcon icon={faUser}/>
                 </Link>
             </div>
