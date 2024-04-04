@@ -16,13 +16,11 @@ const AuthForm = ( { isLogin = true }) => {
     // Connect frontend to backend
     const handleSubmit = async event => {
         event.preventDefault()
-        // requested body with user's e-mail and password
+
         const credentials = { email, password };
         if (!isLogin) {
             credentials.username = username;
         }
-
-        console.log(credentials)
 
         try {
           // POST request with the user's credentials to the server, so that the backend can use them.
@@ -43,7 +41,6 @@ const AuthForm = ( { isLogin = true }) => {
           
           if (response.status === 200) {
             const parsed = await response.json()
-            console.log(parsed.authToken)
             saveToken(parsed.authToken)
             navigate('/profile')
           } 
@@ -54,14 +51,6 @@ const AuthForm = ( { isLogin = true }) => {
 
     return (
         <div className={classes.formCtn}>
-        {/*<Box
-            sx={{
-            margin: '0 auto',
-            maxWidth: '400px',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            }}>*/}
             <Text align='center' size='xl' weight='bold'>
                 {isLogin ? 'Login' : 'Signup'}
             </Text>
@@ -109,8 +98,7 @@ const AuthForm = ( { isLogin = true }) => {
                     <p>New to CrimpIt? Register <Link to={`/signup`}><span> here </span></Link></p> 
                 </div>
             </Box>
-       {/*</Box>*/}
-       </div>
+        </div>
     );
 }
  

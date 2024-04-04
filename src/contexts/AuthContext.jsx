@@ -9,7 +9,7 @@ const AuthContextProvider = ({ children }) => {
 
     const saveToken = token => {
         setToken(token)
-        //setIsAuthenticated(true)
+        setIsAuthenticated(true)
         window.localStorage.setItem('authToken', token)
     }
 
