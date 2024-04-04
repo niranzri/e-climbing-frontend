@@ -11,6 +11,7 @@ import WishlistPage from './pages/WishlistPage';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 import ErrorPage from './pages/ErrorPage';
+import PrivateRoute from './components/PrivateRoute';
 import './App.css'
 
 function App() {
@@ -21,12 +22,12 @@ function App() {
         <Route path='/' element={<LandingPage/>} />
         <Route path='/login' element={<LoginPage/>} />
         <Route path='/signup' element={<SignupPage/>} />
-        <Route path='/profile' element={<ProfilePage/>} />
         <Route path='/products' element={<ShopPage/>} />
         <Route path='/products/:productId' element={<ProductPage/>} />
-        <Route path='/profile/wishlist' element={<WishlistPage/>} />
-        <Route path='/profile/cart' element={<CartPage />} />
-        <Route path='/profile/cart/checkout' element={<CheckoutPage />} />
+        <Route path='/profile' element={<PrivateRoute> <ProfilePage/> </PrivateRoute>} />
+        <Route path='/profile/wishlist' element={<PrivateRoute> <WishlistPage/> </PrivateRoute>} />
+        <Route path='/profile/cart' element={<PrivateRoute> <CartPage /> </PrivateRoute>} />
+        <Route path='/profile/cart/checkout' element={ <PrivateRoute> <CheckoutPage /> </PrivateRoute>} />
         <Route path='*' element={<ErrorPage/>} />
       </Routes>
       <Footer />

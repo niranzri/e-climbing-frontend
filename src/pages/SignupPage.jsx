@@ -1,9 +1,10 @@
 import classes from '../styles/auth.module.css'
+import AuthForm from '../components/AuthForm'
 
 const SignupPage = () => {
     return ( 
         <div className={classes.mainCtn}> 
-            Signup
+            <AuthForm isLogin={false}/>
         </div>
      );
 }

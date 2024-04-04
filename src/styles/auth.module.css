@@ -2,7 +2,44 @@
     width: 100%;
     height: 100%;
     display: flex;
-    background-color:white;
+    background-color:black;
     justify-content: center;
     align-items: center;
+    overflow-y: auto;
+}
+
+.formCtn {
+    background-color: white;
+    display:flex;
+    height: auto;
+    flex-direction: column;
+    padding: 10px 40px;
+    border-radius: 5px;
+    overflow-y: auto; 
+}
+
+.formCtn form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 1rem;
+}
+
+.formCtn label {
+    display:flex;
+    padding-bottom: 10px;
+}
+
+.registrationCtn {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:black;
+}
+
+.registrationCtn > p {
+    color: black;
+    font-size: 0.8rem;
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
 }
