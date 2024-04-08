@@ -22,8 +22,8 @@ const ProductPage = () => {
             <div className={classes.header}>
                 <p> Check product details below </p>
             </div>
-            <div className={classes.mainCtn}> 
-                <div className={classes.productsCtn}>
+            <div className={newclasses.mainCtn}> 
+                <div className={newclasses.productsCtn}>
                     { selectedProduct && (
                         <Card shadow="sm" padding="lg" radius="md" withBorder className={classes.productCtn} key={selectedProduct._id}>
                             <Card.Section position="relative"> {/* allows positioning of child heart icon */}
