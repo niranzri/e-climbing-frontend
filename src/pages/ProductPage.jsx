@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext }  from "react";
 import { Link, useParams } from "react-router-dom";
-import { Card, Image, Text, Badge, Group, Button } from '@mantine/core';
+import { Card, Image, Text, Badge, Group, Button, Modal, Textarea } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
@@ -16,6 +17,8 @@ const ProductPage = () => {
     if (!selectedProduct) {
         return <div> Loading... </div>; 
     }
+
+
 
     return ( 
         <> 
@@ -58,7 +61,7 @@ const ProductPage = () => {
 
                     <div className={newclasses.reviewCtn}> 
                         Reviews
-                            <Button color="purple" mt="md" radius="md"> Add review </Button>
+                            <Button type='subutton' color="purple" mt="md" radius="md"> Add review </Button>
 
                         <Link to="/products">
                             <Button color="green" mt="md" radius="md"> Go back to list </Button>

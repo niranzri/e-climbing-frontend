@@ -22,7 +22,7 @@
     "@mantine/carousel": "^7.6.2",
     "@mantine/core": "^7.6.2",
     "@mantine/form": "^7.6.2",
-    "@mantine/hooks": "^7.6.2",
+    "@mantine/hooks": "^7.7.1",
     "@mui/material": "^5.15.14",
     "axios": "^1.6.8",
     "embla-carousel-autoplay": "^7.1.0",
