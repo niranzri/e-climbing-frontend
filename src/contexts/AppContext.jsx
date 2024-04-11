@@ -40,9 +40,20 @@ const AppContextProvider = ({ children }) => {
         });
     }
 
+    const removeFromFavourites = (productId) => {
+        setProducts(prevProducts => {
+            return prevProducts.map(product => {
+                if (product._id === productId) {
+                    return { ...product, isFavourite: false }; // Update the isFavourite property to false
+                }
+                return product;
+            });
+        });
+    }
+
     return (
         <AppContext.Provider 
-            value={{ products, setProducts, saveToFavourites }}> 
+            value={{ products, setProducts, saveToFavourites, removeFromFavourites }}> 
                 {children} 
         </AppContext.Provider>
       );

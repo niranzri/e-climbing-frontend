@@ -1,6 +1,6 @@
-import { useState, useEffect, useContext }  from "react";
+import { useState, useContext }  from "react";
 import { Link, useParams } from "react-router-dom";
-import { Card, Image, Text, Badge, Group, Button, Modal, Textarea } from '@mantine/core';
+import { Card, Image, Text, Badge, Group, Button, Modal } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
@@ -11,14 +11,41 @@ import newclasses from '../styles/shopdetailspage.module.css';
 
 const ProductPage = () => {
     const { productId } = useParams();
-    const { products, saveToFavourites } = useContext(AppContext);
+    const { products, saveToFavourites, isAuthenticated } = useContext(AppContext);
+    const [showLoginNotificationFavourites, setShowLoginNotificationFavourites] = useState(false);
+    const [showLoginNotificationCart, setShowLoginNotificationCart] = useState(false);
+    const { opened, close, open } = useDisclosure();
+
     const selectedProduct = products.find(product => product._id === productId);
 
     if (!selectedProduct) {
         return <div> Loading... </div>; 
     }
 
+    const handleSaveToFavourites = () => {
+        if (!isAuthenticated) {
+            setShowLoginNotificationFavourites(true);
+        } else {
+            const isProductInFavorites = selectedProduct.isFavourite;
+            if (!isProductInFavorites) {
+                saveToFavourites(selectedProduct._id);
+                console.log("request to add product to wishlist needed");
+            } else {
+                removeFromFavorites(selectedProduct._id); // Call the function to remove the item from favorites
+                console.log("request to remove product from wishlist needed");
+            }
+        }
+    }
+    // () => saveToFavourites(selectedProduct._id)
 
+    const handleAddToCart = () => {
+        if (!isAuthenticated) {
+            setShowLoginNotificationCart(true);
+        } else {
+            // push product to cart in user routes
+            console.log("request to add product to cart needed")
+        }
+    }
 
     return ( 
         <> 
@@ -34,7 +61,7 @@ const ProductPage = () => {
                                     icon={selectedProduct.isFavourite ? solidHeart : regularHeart} 
                                     size="lg"
                                     className={classes.heartIcon} 
-                                    onClick={() => saveToFavourites(selectedProduct._id)} // function to save item to favourites
+                                    onClick={handleSaveToFavourites} // function to save item to favourites
                                 />
                                 <Image
                                     src={selectedProduct.image}
@@ -69,6 +96,26 @@ const ProductPage = () => {
                     </div>
                 </div>
             </div>
+
+            <Modal opened={showLoginNotificationFavourites} onClose={() => setShowLoginNotificationFavourites(false)}>
+                <Modal.Body>You need to login to save this product to favourites.</Modal.Body>
+                <div className="modal-buttons">
+                    <Button color="green" onClick={() => setShowLoginNotificationFavourites(false)}>Close</Button>
+                    <Link to="/login">
+                        <Button color="green">Login</Button>
+                    </Link>
+                </div>
+            </Modal>
+
+            <Modal opened={showLoginNotificationCart} onClose={() => setShowLoginNotificationCart(false)}>
+                <Modal.Body>You need to login to add this product to your cart.</Modal.Body>
+                <div className="modal-buttons">
+                    <Button color="green" onClick={() => setShowLoginNotificationCart(false)}>Close</Button>
+                    <Link to="/login">
+                        <Button color="green">Login</Button>
+                    </Link>
+                </div>
+            </Modal>
         </>
      );
 }
