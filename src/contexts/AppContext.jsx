@@ -1,10 +1,12 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
+import { AuthContext } from "../contexts/AuthContext";
 import axios from "axios";
 
 export const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
+    const { fetchWithToken } = useContext(AuthContext)
 
     const getAllProducts = async () => {
         try {
@@ -27,28 +29,49 @@ const AppContextProvider = ({ children }) => {
     }, []);
 
 
-    const addToFavourites = (productId) => {
-        setProducts(prevProducts => {
-            const updatedProducts = prevProducts.map(product => {
-            if (product._id === productId) {
-                return {...product, isFavourite: true}; // .map() creates a new object, so one needs a shallow copy, to which the updated isFavourite property is added
+    const addToFavourites = async (productId) => {
+        try {
+            const response = await fetchWithToken('/users/me/wishlist', 'POST', { productId })
+
+            if (response.ok) {
+                setProducts(prevProducts => {
+                    const updatedProducts = prevProducts.map(product => {
+                    if (product._id === productId) {
+                        return {...product, isFavourite: true}; // .map() creates a new object, so one needs a shallow copy, to which the updated isFavourite property is added
+                    }
+                    return product; 
+                    })
+                    return updatedProducts;
+                });
+            console.log("Product added to favourites successfully");
             }
-            return product; 
-        })
-        console.log(updatedProducts)
-        return updatedProducts;
-        });
+
+        } catch (error) {
+            console.log("Error adding product to favourites:", error);
+        }
     }
 
-    const removeFromFavourites = (productId) => {
-        setProducts(prevProducts => {
-            return prevProducts.map(product => {
-                if (product._id === productId) {
-                    return { ...product, isFavourite: false }; // Update the isFavourite property to false
-                }
-                return product;
-            });
-        });
+    const removeFromFavourites = async (productId) => {
+        try {
+            const response = await fetchWithToken(`/users/me/wishlist/${productId}`, 'DELETE', { productId })
+
+            if (response.ok) {
+                setProducts(prevProducts => {
+                    const updatedProducts = prevProducts.map(product => {
+                        if (product._id === productId) {
+                            return { ...product, isFavourite: false }; // Update the isFavourite property to false
+                        }
+                        return product;
+                    })
+                    return updatedProducts;
+                });
+                console.log("Product removed from favourites successfully");
+            }
+
+        } catch (error) {
+            console.log("Error removing product from favourites:", error);
+        }
+
     }
 
     return (

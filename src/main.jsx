@@ -12,13 +12,13 @@ import '@mantine/core/styles.css';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <AppContextProvider>
-        <AuthContextProvider>
+      <AuthContextProvider>
+        <AppContextProvider>
           <MantineProvider withGlobalStyles withNormalizeCSS>
             <App />
           </MantineProvider>
-        </AuthContextProvider>
-      </AppContextProvider>
+        </AppContextProvider>
+      </AuthContextProvider>
     </BrowserRouter>
   </React.StrictMode>,
 )

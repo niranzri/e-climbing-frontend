@@ -9,6 +9,7 @@ import { AppContext } from "../contexts/AppContext";
 import { AuthContext } from "../contexts/AuthContext";
 import classes from '../styles/shoppage.module.css';
 import newclasses from '../styles/shopdetailspage.module.css';
+import axios from "axios";
 
 const ProductPage = () => {
     const { productId } = useParams();
@@ -32,11 +33,9 @@ const ProductPage = () => {
         } else {
             const isProductInFavorites = selectedProduct.isFavourite;
             if (!isProductInFavorites) {
-                addToFavourites(selectedProduct._id);
-                console.log("request to add product to wishlist needed");
+                addToFavourites(selectedProduct._id); // POST request to server and products state update
             } else {
-                removeFromFavourites(selectedProduct._id); // Call the function to remove the item from favorites
-                console.log("request to remove product from wishlist needed");
+                removeFromFavourites(selectedProduct._id); // DELETE request to server and products state update
             }
         }
     }
