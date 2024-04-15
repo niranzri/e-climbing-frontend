@@ -17,7 +17,7 @@ const ShopPage = () => {
     const [maxPrice, setMaxPrice] = useState(300);
     const isSmallScreen = useMediaQuery('(max-width: 1024px)'); 
 
-    const { products, saveToFavourites } = useContext(AppContext);
+    const { products } = useContext(AppContext);
 
     function removeDuplicates(data) {
         return [... new Set(data)]

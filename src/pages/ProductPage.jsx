@@ -6,12 +6,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 import { AppContext } from "../contexts/AppContext";
+import { AuthContext } from "../contexts/AuthContext";
 import classes from '../styles/shoppage.module.css';
 import newclasses from '../styles/shopdetailspage.module.css';
 
 const ProductPage = () => {
     const { productId } = useParams();
-    const { products, saveToFavourites, isAuthenticated } = useContext(AppContext);
+    const { products, addToFavourites, removeFromFavourites} = useContext(AppContext);
+    const { isAuthenticated } = useContext(AuthContext)
     const [showLoginNotificationFavourites, setShowLoginNotificationFavourites] = useState(false);
     const [showLoginNotificationCart, setShowLoginNotificationCart] = useState(false);
     const { opened, close, open } = useDisclosure();
@@ -22,16 +24,18 @@ const ProductPage = () => {
         return <div> Loading... </div>; 
     }
 
+    console.log(isAuthenticated)
+
     const handleSaveToFavourites = () => {
         if (!isAuthenticated) {
             setShowLoginNotificationFavourites(true);
         } else {
             const isProductInFavorites = selectedProduct.isFavourite;
             if (!isProductInFavorites) {
-                saveToFavourites(selectedProduct._id);
+                addToFavourites(selectedProduct._id);
                 console.log("request to add product to wishlist needed");
             } else {
-                removeFromFavorites(selectedProduct._id); // Call the function to remove the item from favorites
+                removeFromFavourites(selectedProduct._id); // Call the function to remove the item from favorites
                 console.log("request to remove product from wishlist needed");
             }
         }
