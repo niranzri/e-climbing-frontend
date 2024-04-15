@@ -5,7 +5,7 @@
     background-color:white;
 }
 
-.reviewCtn {
+.rightCtn {
     display:flex;
     flex-direction:column;
     width: auto;
@@ -23,3 +23,30 @@
     flex-wrap: wrap;
     overflow-y: auto;
 }
+
+.modalButtons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.reviewsCtn {
+    display:flex;
+    flex-direction: column;
+    width: auto;
+    height:auto;
+    padding: 10px;
+}
+
+.reviewCtn {
+    display:flex;
+    flex-direction: column;
+    width: auto;
+    height:auto;
+}
+
+
+
+
+
+

@@ -11,16 +11,16 @@ const AppContextProvider = ({ children }) => {
     const getAllProducts = async () => {
         try {
             const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products`);
-            const modifiedProducts = initializeFavourites(response.data);
+            const modifiedProducts = initializeProducts(response.data);
             setProducts(modifiedProducts);
         } catch (error) {
             console.error("Error fetching products:", error)
         }
     };
 
-    const initializeFavourites = (products) => {
+    const initializeProducts = (products) => {
         return products.map(product => ({
-            ...product, isFavourite: false
+            ...product, isFavourite: false, isInCart: false
         }));
     }
 
@@ -74,9 +74,55 @@ const AppContextProvider = ({ children }) => {
 
     }
 
+    const addToCart = async (productId) => {
+        try {
+            const response = await fetchWithToken('/users/me/cart', 'POST', { productId })
+
+            if (response.ok) {
+                setProducts(prevProducts => {
+                    const updatedProducts = prevProducts.map(product => {
+                    if (product._id === productId) {
+                        return {...product, isInCart: true}; // .map() creates a new object, so one needs a shallow copy, to which the updated isFavourite property is added
+                    }
+                    return product; 
+                    })
+                    return updatedProducts;
+                });
+            console.log("Product added to cart successfully");
+            }
+
+        } catch (error) {
+            console.log("Error adding product to cart:", error);
+        }
+    }
+
+    const removeFromCart = async (productId) => {
+        try {
+            const response = await fetchWithToken(`/users/me/cart/${productId}`, 'DELETE', { productId })
+
+            if (response.ok) {
+                setProducts(prevProducts => {
+                    const updatedProducts = prevProducts.map(product => {
+                        if (product._id === productId) {
+                            return { ...product, isInCart: false }; // Update the isInCart property to false
+                        }
+                        return product;
+                    })
+                    return updatedProducts;
+                });
+                console.log("Product removed from cart successfully");
+            }
+
+        } catch (error) {
+            console.log("Error removing product from cart:", error);
+        }
+
+    }
+
+
     return (
         <AppContext.Provider 
-            value={{ products, setProducts, addToFavourites, removeFromFavourites }}> 
+            value={{ products, setProducts, addToFavourites, removeFromFavourites, addToCart, removeFromCart }}> 
                 {children} 
         </AppContext.Provider>
       );

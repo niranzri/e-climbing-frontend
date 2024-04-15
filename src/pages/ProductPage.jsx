@@ -1,7 +1,6 @@
-import { useState, useContext }  from "react";
+import { useState, useEffect, useContext }  from "react";
 import { Link, useParams } from "react-router-dom";
 import { Card, Image, Text, Badge, Group, Button, Modal } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
@@ -13,21 +12,36 @@ import axios from "axios";
 
 const ProductPage = () => {
     const { productId } = useParams();
-    const { products, addToFavourites, removeFromFavourites} = useContext(AppContext);
+    const { products, setProducts, addToFavourites, removeFromFavourites, addToCart, removeFromCart} = useContext(AppContext);
     const { isAuthenticated } = useContext(AuthContext)
     const [showLoginNotificationFavourites, setShowLoginNotificationFavourites] = useState(false);
     const [showLoginNotificationCart, setShowLoginNotificationCart] = useState(false);
-    const { opened, close, open } = useDisclosure();
 
+/*
+    const getProductWithReviews = async () => {
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/${productId}`);
+            if (response.ok) {
+                setProducts(response.data)
+            }
+        } catch (error) {
+            console.error("Error fetching product with reviews:", error)
+        }
+    };
+    
+    useEffect(() => {
+        getProductWithReviews()
+    }, []);
+*/
     const selectedProduct = products.find(product => product._id === productId);
 
     if (!selectedProduct) {
         return <div> Loading... </div>; 
     }
 
-    console.log(isAuthenticated)
+    console.log(selectedProduct)
 
-    const handleSaveToFavourites = () => {
+    const toggleFavouritesStatus = () => {
         if (!isAuthenticated) {
             setShowLoginNotificationFavourites(true);
         } else {
@@ -39,14 +53,17 @@ const ProductPage = () => {
             }
         }
     }
-    // () => saveToFavourites(selectedProduct._id)
 
-    const handleAddToCart = () => {
+    const toggleCartStatus = () => {
         if (!isAuthenticated) {
             setShowLoginNotificationCart(true);
         } else {
-            // push product to cart in user routes
-            console.log("request to add product to cart needed")
+            const isProductInCart = selectedProduct.isInCart;
+            if (!isProductInCart) {
+                addToCart(selectedProduct._id); // POST request to server and products state update
+            } else {
+                removeFromCart(selectedProduct._id); // DELETE request to server and products state update
+            }
         }
     }
 
@@ -64,8 +81,9 @@ const ProductPage = () => {
                                     icon={selectedProduct.isFavourite ? solidHeart : regularHeart} 
                                     size="lg"
                                     className={classes.heartIcon} 
-                                    onClick={handleSaveToFavourites} // function to save item to favourites
+                                    onClick={toggleFavouritesStatus} // function to save item to favourites
                                 />
+                                {console.log(selectedProduct.isFavourite)}
                                 <Image
                                     src={selectedProduct.image}
                                     height={160}
@@ -84,15 +102,33 @@ const ProductPage = () => {
                                 <Text size="sm" c="dimmed"> {selectedProduct.price} € </Text>
                             </Group>
 
-                            <Button color="green" mt="md" radius="md"> Add to cart </Button>
+                            <Button 
+                                color="green" mt="md" radius="md"
+                                onClick={toggleCartStatus}> { selectedProduct.isInCart ? 'Remove from Cart' : 'Add to Cart'}
+                            </Button>
                         </Card>
                         )
                     }
 
-                    <div className={newclasses.reviewCtn}> 
-                        Reviews
-                            <Button type='subutton' color="purple" mt="md" radius="md"> Add review </Button>
+                    <div className={newclasses.rightCtn}> 
+                        <p> Reviews </p>
+                        <div className={newclasses.reviewsCtn}>
+                            {selectedProduct.reviews && selectedProduct.reviews.map((review)=> (
+                                <div key={review._id} className={newclasses.reviewCtn}>
+                                    <div>{review.rating}</div>
+                                    <div>{review.title}</div>
+                                    <div>{review.description}</div>
+                                </div>
+                            ))}
+                        </div>
 
+                        { isAuthenticated ?
+                        <Button 
+                            type='button' 
+                            color="purple" mt="md" radius="md"> 
+                                Add review 
+                        </Button> : null
+                        }
                         <Link to="/products">
                             <Button color="green" mt="md" radius="md"> Go back to list </Button>
                         </Link>
@@ -102,20 +138,28 @@ const ProductPage = () => {
 
             <Modal opened={showLoginNotificationFavourites} onClose={() => setShowLoginNotificationFavourites(false)}>
                 <Modal.Body>You need to login to save this product to favourites.</Modal.Body>
-                <div className="modal-buttons">
-                    <Button color="green" onClick={() => setShowLoginNotificationFavourites(false)}>Close</Button>
+                <div className={newclasses.modalButtons}>
+                    <Button 
+                        color="green" 
+                        onClick={() => setShowLoginNotificationFavourites(false)}>
+                            Close
+                    </Button>
                     <Link to="/login">
-                        <Button color="green">Login</Button>
+                        <Button color="green"> Login </Button>
                     </Link>
                 </div>
             </Modal>
 
             <Modal opened={showLoginNotificationCart} onClose={() => setShowLoginNotificationCart(false)}>
                 <Modal.Body>You need to login to add this product to your cart.</Modal.Body>
-                <div className="modal-buttons">
-                    <Button color="green" onClick={() => setShowLoginNotificationCart(false)}>Close</Button>
+                <div className={newclasses.modalButtons}>
+                    <Button 
+                        color="green" 
+                        onClick={() => setShowLoginNotificationCart(false)}>
+                            Close
+                    </Button>
                     <Link to="/login">
-                        <Button color="green">Login</Button>
+                        <Button color="green"> Login </Button>
                     </Link>
                 </div>
             </Modal>
