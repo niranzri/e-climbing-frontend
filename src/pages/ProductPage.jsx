@@ -8,38 +8,37 @@ import { AppContext } from "../contexts/AppContext";
 import { AuthContext } from "../contexts/AuthContext";
 import classes from '../styles/shoppage.module.css';
 import newclasses from '../styles/shopdetailspage.module.css';
-import axios from "axios";
+
 
 const ProductPage = () => {
     const { productId } = useParams();
-    const { products, setProducts, addToFavourites, removeFromFavourites, addToCart, removeFromCart} = useContext(AppContext);
+    const { addToFavourites, removeFromFavourites, addToCart, removeFromCart, updateProductReviews, getProduct } = useContext(AppContext);
     const { isAuthenticated } = useContext(AuthContext)
     const [showLoginNotificationFavourites, setShowLoginNotificationFavourites] = useState(false);
     const [showLoginNotificationCart, setShowLoginNotificationCart] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
-/*
-    const getProductWithReviews = async () => {
-        try {
-            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/${productId}`);
-            if (response.ok) {
-                setProducts(response.data)
-            }
-        } catch (error) {
-            console.error("Error fetching product with reviews:", error)
-        }
-    };
-    
     useEffect(() => {
-        getProductWithReviews()
-    }, []);
-*/
-    const selectedProduct = products.find(product => product._id === productId);
+        const fetchProduct = async () => {
+            try {
+                await updateProductReviews(productId); // Update product review first;
+                const product = await getProduct(productId);
+                setSelectedProduct(product);
+            } catch (error) {
+                console.error("Error fetching product with reviews:", error);
+            }
+        };
+
+        fetchProduct();
+
+    }, [ productId, updateProductReviews, getProduct ]);
+
 
     if (!selectedProduct) {
         return <div> Loading... </div>; 
     }
 
-    console.log(selectedProduct)
+    // console.log(selectedProduct)
 
     const toggleFavouritesStatus = () => {
         if (!isAuthenticated) {
@@ -65,6 +64,10 @@ const ProductPage = () => {
                 removeFromCart(selectedProduct._id); // DELETE request to server and products state update
             }
         }
+    }
+
+    const handleAddReview = () => {
+        console.log("complete")
     }
 
     return ( 
@@ -121,17 +124,29 @@ const ProductPage = () => {
                                 </div>
                             ))}
                         </div>
-
-                        { isAuthenticated ?
-                        <Button 
-                            type='button' 
-                            color="purple" mt="md" radius="md"> 
-                                Add review 
-                        </Button> : null
-                        }
-                        <Link to="/products">
-                            <Button color="green" mt="md" radius="md"> Go back to list </Button>
-                        </Link>
+                        
+                        <div className={newclasses.buttonsCtn}>
+                            { isAuthenticated &&
+                            <div className={newclasses.buttonCtn}>
+                            <Button 
+                                color="purple" 
+                                mt="md" 
+                                radius="md"
+                                fluid
+                                onClick={handleAddReview}> 
+                                    Add review 
+                            </Button> 
+                            </div>
+                            }
+                            <Link to="/products">
+                                <Button 
+                                color="green" 
+                                mt="md" 
+                                radius="md"> 
+                                    Go back to list 
+                                </Button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>

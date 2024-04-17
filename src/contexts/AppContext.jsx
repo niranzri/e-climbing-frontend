@@ -5,6 +5,7 @@ import axios from "axios";
 export const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
+
     const [products, setProducts] = useState([]);
     const { fetchWithToken } = useContext(AuthContext)
 
@@ -119,10 +120,32 @@ const AppContextProvider = ({ children }) => {
 
     }
 
+    const updateProductReviews = async (productId, newReviews) => {
+        try {
+            const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/products/${productId}/reviews`, newReviews);
+            return response.data;
+
+        } catch (error) {
+            console.log("Error updating product reviews:", error)
+            throw error;
+        }
+    }
+
+    const getProduct = async (productId) => {
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/${productId}`);
+            return response.data;
+
+        } catch (error) {
+            console.log("Error getting product:", error)
+            throw error;
+        }
+    }
+
 
     return (
         <AppContext.Provider 
-            value={{ products, setProducts, addToFavourites, removeFromFavourites, addToCart, removeFromCart }}> 
+            value={{ products, setProducts, addToFavourites, removeFromFavourites, addToCart, removeFromCart, updateProductReviews, getProduct }}> 
                 {children} 
         </AppContext.Provider>
       );

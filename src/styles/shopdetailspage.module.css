@@ -31,10 +31,10 @@
 }
 
 .reviewsCtn {
-    display:flex;
+    display: flex;
     flex-direction: column;
     width: auto;
-    height:auto;
+    height: auto;
     padding: 10px;
 }
 
@@ -44,6 +44,21 @@
     width: auto;
     height:auto;
 }
+
+.buttonsCtn {
+    display:flex;
+    flex-direction:column;
+}
+
+.buttonCtn {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
 
 
 
