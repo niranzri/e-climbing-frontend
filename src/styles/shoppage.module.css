@@ -89,8 +89,8 @@ img {
     right: 10px; /* Adjust the right position as needed */
     z-index: 1;
     color: #9499a1;
+    cursor: pointer;
   }
-
 
 
 @media (max-width: 1024px) { 

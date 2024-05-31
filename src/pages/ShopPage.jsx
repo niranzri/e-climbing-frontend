@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useState, useContext }  from "react";
 import { Link } from "react-router-dom";
 import { Card, Image, Text, Badge, Group, Pill, Button } from '@mantine/core';
@@ -154,7 +155,8 @@ const ShopPage = () => {
                                         icon={product.isFavourite ? solidHeart : regularHeart} 
                                         size="lg"
                                         className={classes.heartIcon} 
-                                        onClick={() => saveToFavourites(product._id)} // function to save item to favourites
+                                       /*  onClick={() => toggleSaveToFavourites(product._id)} 
+                                       make it only so that if user id exists then one can add to cart or wishlist */
                                     />
                                     <Image
                                         src={product.image}
@@ -174,7 +176,13 @@ const ShopPage = () => {
                                     <Text size="sm" c="dimmed"> {product.price} € </Text>
                                 </Group>
 
-                                <Button color="green" mt="md" radius="md"> Add to cart </Button>
+                                <Button 
+                                    color="green" 
+                                    mt="md" 
+                                    radius="md" 
+/*                                  onClick={toggleAddToCart} */> 
+                                    Add to cart 
+                                </Button>
                             </Link>
                         </Card>
                     ))}

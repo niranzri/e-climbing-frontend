@@ -4,6 +4,7 @@ import { Box, Button, PasswordInput, Text, TextInput } from '@mantine/core'
 import { AuthContext } from '../contexts/AuthContext'
 import classes from '../styles/auth.module.css'
 
+// eslint-disable-next-line react/prop-types
 const AuthForm = ( { isLogin = true }) => {
 
     const navigate = useNavigate();

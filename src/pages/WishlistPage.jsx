@@ -1,6 +1,6 @@
 const WishlistPage = () => {
     return ( 
-        <> Wishlist Page</>
+        <> Wishlist Page </>
     );
 }
  

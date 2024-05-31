@@ -4,6 +4,7 @@ import axios from "axios";
 
 export const AppContext = createContext();
 
+// eslint-disable-next-line react/prop-types
 const AppContextProvider = ({ children }) => {
 
     const [products, setProducts] = useState([]);
@@ -30,17 +31,23 @@ const AppContextProvider = ({ children }) => {
     }, []);
 
 
+    // unify addToFavourites and removeFromFavourites in one function
     const addToFavourites = async (productId) => {
+
+        // something like: if product.id === productId
+        // if product.isFavourite === false
+            // THEN POST to wishlist and update product state. 
+            // ELSE DELETE from wishlist and update product state.
         try {
             const response = await fetchWithToken('/users/me/wishlist', 'POST', { productId })
 
             if (response.ok) {
                 setProducts(prevProducts => {
                     const updatedProducts = prevProducts.map(product => {
-                    if (product._id === productId) {
-                        return {...product, isFavourite: true}; // .map() creates a new object, so one needs a shallow copy, to which the updated isFavourite property is added
-                    }
-                    return product; 
+                        if (product._id === productId) {
+                            return {...product, isFavourite: true}; // .map() creates a new object, so one needs a shallow copy, to which the updated isFavourite property is added
+                        }
+                        return product; 
                     })
                     return updatedProducts;
                 });
@@ -75,6 +82,7 @@ const AppContextProvider = ({ children }) => {
 
     }
 
+    // same logic wishlist > add to cart
     const addToCart = async (productId) => {
         try {
             const response = await fetchWithToken('/users/me/cart', 'POST', { productId })
