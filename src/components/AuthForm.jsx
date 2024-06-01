@@ -43,7 +43,7 @@ const AuthForm = ( { isLogin = true }) => {
           if (response.status === 200) {
             const parsed = await response.json()
             saveToken(parsed.authToken)
-            navigate('/profile')
+            navigate('/products')
           } 
         } catch (error) {
           console.error(error)

@@ -19,6 +19,7 @@ const ShopPage = () => {
     const isSmallScreen = useMediaQuery('(max-width: 1024px)'); 
 
     const { products } = useContext(AppContext);
+    console.log(products) // REMOVE
 
     function removeDuplicates(data) {
         return [... new Set(data)]

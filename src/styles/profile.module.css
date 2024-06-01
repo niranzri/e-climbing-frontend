@@ -7,3 +7,6 @@
     align-items: center;
     overflow-y: auto;
 }
+p {
+    color: white;
+}

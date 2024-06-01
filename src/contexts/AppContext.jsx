@@ -31,13 +31,13 @@ const AppContextProvider = ({ children }) => {
     }, []);
 
 
-    // unify addToFavourites and removeFromFavourites in one function
-    const addToFavourites = async (productId) => {
-
+    // unify addToFavourites and removeFromFavourites here?
         // something like: if product.id === productId
         // if product.isFavourite === false
             // THEN POST to wishlist and update product state. 
             // ELSE DELETE from wishlist and update product state.
+
+    const addToFavourites = async (productId) => {
         try {
             const response = await fetchWithToken('/users/me/wishlist', 'POST', { productId })
 

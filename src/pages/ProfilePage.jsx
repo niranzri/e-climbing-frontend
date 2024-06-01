@@ -9,6 +9,7 @@ const ProfilePage = () => {
 
     return (
         <div className={classes.mainCtn}> 
+        <p> User details + purchase history </p>
          <Button 
             color="green" 
             mt="md" 

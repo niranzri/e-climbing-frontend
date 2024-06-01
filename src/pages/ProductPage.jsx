@@ -86,7 +86,7 @@ const ProductPage = () => {
                                     className={classes.heartIcon} 
                                     onClick={toggleFavouritesStatus} // function to save item to favourites
                                 />
-                                {console.log(selectedProduct.isFavourite)}
+                                {console.log(selectedProduct)} 
                                 <Image
                                     src={selectedProduct.image}
                                     height={160}
@@ -99,7 +99,6 @@ const ProductPage = () => {
                                 <Text fw={500}> {selectedProduct.brand} </Text>
                                 <Badge color="black"> On Sale </Badge>
                             </Group>
-
 
                             <Group justify="space-between" mt="md" mb="xs">
                                 <Text size="sm" c="dimmed"> {selectedProduct.price} € </Text>
@@ -154,11 +153,6 @@ const ProductPage = () => {
             <Modal opened={showLoginNotificationFavourites} onClose={() => setShowLoginNotificationFavourites(false)}>
                 <Modal.Body>You need to login to save this product to favourites.</Modal.Body>
                 <div className={newclasses.modalButtons}>
-                    <Button 
-                        color="green" 
-                        onClick={() => setShowLoginNotificationFavourites(false)}>
-                            Close
-                    </Button>
                     <Link to="/login">
                         <Button color="green"> Login </Button>
                     </Link>
@@ -168,11 +162,6 @@ const ProductPage = () => {
             <Modal opened={showLoginNotificationCart} onClose={() => setShowLoginNotificationCart(false)}>
                 <Modal.Body>You need to login to add this product to your cart.</Modal.Body>
                 <div className={newclasses.modalButtons}>
-                    <Button 
-                        color="green" 
-                        onClick={() => setShowLoginNotificationCart(false)}>
-                            Close
-                    </Button>
                     <Link to="/login">
                         <Button color="green"> Login </Button>
                     </Link>
